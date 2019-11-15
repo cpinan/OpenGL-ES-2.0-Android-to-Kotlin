@@ -148,26 +148,6 @@ class AirHockeyRenderer(private val context: Context) : GLBaseRenderer() {
         // Set the OpenGL viewport to fill the entire surface.
         OpenGLES20.gl2ViewPort(0, 0, width, height)
 
-        /*
-        final float aspectRatio = width > height ?
-            (float) width / (float) height :
-            (float) height / (float) width;
-
-        if (width > height) {
-            // Landscape
-            orthoM(projectionMatrix, 0,
-                -aspectRatio, aspectRatio,
-                -1f, 1f,
-                -1f, 1f);
-        } else {
-            // Portrait or square
-            orthoM(projectionMatrix, 0,
-                -1f, 1f,
-                -aspectRatio, aspectRatio,
-                -1f, 1f);
-        }
-        */
-
         Matrix.perspectiveM(
             projectionMatrix,
             0,
