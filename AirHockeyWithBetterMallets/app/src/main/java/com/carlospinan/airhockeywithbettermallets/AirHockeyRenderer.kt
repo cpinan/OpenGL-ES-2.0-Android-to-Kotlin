@@ -3,10 +3,10 @@ package com.carlospinan.airhockeywithbettermallets
 import android.content.Context
 import android.opengl.GLES20.GL_COLOR_BUFFER_BIT
 import android.opengl.Matrix
-import com.carlospinan.airhockeywithbettermallets.common.BYTES_PER_FLOAT
 import com.carlospinan.airhockeywithbettermallets.common.GLBaseRenderer
 import com.carlospinan.airhockeywithbettermallets.extensions.loadTexture
 import com.carlospinan.airhockeywithbettermallets.objects.Mallet
+import com.carlospinan.airhockeywithbettermallets.objects.Puck
 import com.carlospinan.airhockeywithbettermallets.objects.Table
 import com.carlospinan.airhockeywithbettermallets.programs.ColorShaderProgram
 import com.carlospinan.airhockeywithbettermallets.programs.TextureShaderProgram
@@ -14,25 +14,21 @@ import com.carlospinan.airhockeywithbettermallets.utilities.OpenGLES20
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-private const val A_COLOR = "a_Color"
-private const val A_POSITION = "a_Position"
-private const val U_MATRIX = "u_Matrix"
-
-private const val POSITION_COMPONENT_COUNT = 2
-private const val COLOR_COMPONENT_COUNT = 3
-
-private const val STRIDE =
-    (POSITION_COMPONENT_COUNT + COLOR_COMPONENT_COUNT) * BYTES_PER_FLOAT
-
 class AirHockeyRenderer(private val context: Context) : GLBaseRenderer() {
 
     private lateinit var textureProgram: TextureShaderProgram
     private lateinit var colorProgram: ColorShaderProgram
+
+    private lateinit var puck: Puck
     private lateinit var table: Table
     private lateinit var mallet: Mallet
 
     private val projectionMatrix = FloatArray(16)
     private val modelMatrix = FloatArray(16)
+
+    private val viewMatrix = FloatArray(16)
+    private val viewProjectionMatrix = FloatArray(16)
+    private val modelViewProjectionMatrix = FloatArray(16)
 
     private var texture = -1
 
@@ -48,7 +44,8 @@ class AirHockeyRenderer(private val context: Context) : GLBaseRenderer() {
         )
 
         table = Table()
-        mallet = Mallet()
+        mallet = Mallet(0.08f, 0.15f, 32)
+        puck = Puck(0.06f, 0.02f, 32)
 
         textureProgram =
             TextureShaderProgram(
@@ -76,54 +73,103 @@ class AirHockeyRenderer(private val context: Context) : GLBaseRenderer() {
             10.0f
         )
 
-        Matrix.setIdentityM(modelMatrix, 0)
-
-        Matrix.translateM(
-            modelMatrix,
+        Matrix.setLookAtM(
+            viewMatrix,
             0,
             0.0f,
-            0.0f,
-            -2.5f
+            1.2f,
+            2.2f,
+            0f,
+            0f,
+            0f,
+            0f,
+            1f,
+            0f
         )
-
-        Matrix.rotateM(
-            modelMatrix,
-            0,
-            -60.0f,
-            1.0f,
-            0.0f,
-            0.0f
-        )
-
-        val temp = FloatArray(16)
-
-        Matrix.multiplyMM(
-            temp,
-            0,
-            projectionMatrix,
-            0,
-            modelMatrix,
-            0
-        )
-
-        System.arraycopy(temp, 0, projectionMatrix, 0, temp.size)
     }
 
     override fun onDrawFrame(unused: GL10?) {
         // Clear the rendering surface.
         OpenGLES20.gl2Clear(GL_COLOR_BUFFER_BIT)
 
+        Matrix.multiplyMM(
+            viewProjectionMatrix,
+            0,
+            projectionMatrix,
+            0,
+            viewMatrix,
+            0
+        )
+
         // Draw the table.
+        positionTableInScene()
         textureProgram.useProgram()
-        textureProgram.setUniforms(projectionMatrix, texture)
+        textureProgram.setUniforms(modelViewProjectionMatrix, texture)
         table.bindData(textureProgram)
         table.draw()
 
         // Draw the mallets.
+        positionObjectInScene(0f, mallet.height / 2f, -0.4f)
         colorProgram.useProgram()
-        colorProgram.setUniforms(projectionMatrix)
+        colorProgram.setUniforms(modelViewProjectionMatrix, 1f, 0f, 0f)
         mallet.bindData(colorProgram)
         mallet.draw()
+
+        positionObjectInScene(0f, mallet.height / 2f, 0.4f)
+        colorProgram.setUniforms(modelViewProjectionMatrix, 0f, 0f, 1f)
+
+        // Note that we don't have to define the object data twice -- we just
+        // draw the same mallet again but in a different position and with a
+        // different color.
+        mallet.draw()
+
+        // Draw the puck.
+        positionObjectInScene(0f, puck.height / 2f, 0f)
+        colorProgram.setUniforms(modelViewProjectionMatrix, 0.8f, 0.8f, 1f)
+        puck.bindData(colorProgram)
+        puck.draw()
+
+    }
+
+    private fun positionObjectInScene(x: Float, y: Float, z: Float) {
+        Matrix.setIdentityM(modelMatrix, 0)
+        Matrix.translateM(
+            modelMatrix,
+            0,
+            x,
+            y,
+            z
+        )
+        Matrix.multiplyMM(
+            modelViewProjectionMatrix,
+            0,
+            viewProjectionMatrix,
+            0,
+            modelMatrix,
+            0
+        )
+    }
+
+    private fun positionTableInScene() {
+        // The table is defined in terms of X & Y coordinates, so we rotate it
+        // 90 degrees to lie flat on the XZ plane.
+        Matrix.setIdentityM(modelMatrix, 0)
+        Matrix.rotateM(
+            modelMatrix,
+            0,
+            -90f,
+            1f,
+            0f,
+            0f
+        )
+        Matrix.multiplyMM(
+            modelViewProjectionMatrix,
+            0,
+            viewProjectionMatrix,
+            0,
+            modelMatrix,
+            0
+        )
     }
 
 }
