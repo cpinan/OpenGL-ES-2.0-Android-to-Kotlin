@@ -49,7 +49,7 @@ class ParticlesRenderer(
         particleSystem = ParticleSystem(10000)
         globalStartTime = System.nanoTime()
 
-        val particleDirection = Vector(0f, 0.5f, 5f)
+        val particleDirection = Vector(0f, 0.5f, 0f)
 
         redParticleShooter = ParticleShooter(
             Point(-1f, 0f, 0f),
