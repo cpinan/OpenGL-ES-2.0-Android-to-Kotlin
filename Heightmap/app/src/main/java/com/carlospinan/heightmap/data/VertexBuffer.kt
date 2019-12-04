@@ -11,8 +11,7 @@ class VertexBuffer(
     private val vertexData: FloatArray
 ) {
 
-    var bufferId = -1
-        private set
+    val bufferId: Int
 
     init {
         val buffers = IntArray(1)

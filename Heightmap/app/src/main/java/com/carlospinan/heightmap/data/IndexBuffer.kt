@@ -8,8 +8,7 @@ import java.nio.ByteOrder
 class IndexBuffer(
     private val indexData: ShortArray
 ) {
-    var bufferId = -1
-        private set
+    val bufferId: Int
 
     init {
         val buffers = IntArray(1)
