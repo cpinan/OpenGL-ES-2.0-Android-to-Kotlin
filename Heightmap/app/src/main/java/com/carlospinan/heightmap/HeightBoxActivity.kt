@@ -1,13 +1,13 @@
-package com.carlospinan.skybox
+package com.carlospinan.heightmap
 
 import android.view.MotionEvent
-import com.carlospinan.skybox.common.GLBaseActivity
-import com.carlospinan.skybox.common.GLBaseRenderer
+import com.carlospinan.heightmap.common.GLBaseActivity
+import com.carlospinan.heightmap.common.GLBaseRenderer
 
-class SkyBoxActivity : GLBaseActivity() {
+class HeightBoxActivity : GLBaseActivity() {
 
     override fun setRenderer(): GLBaseRenderer {
-        return SkyBoxRenderer(this)
+        return HeightBoxRenderer(this)
     }
 
     override fun onReady() {

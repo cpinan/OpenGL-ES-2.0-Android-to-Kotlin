@@ -1,27 +1,27 @@
-package com.carlospinan.skybox
+package com.carlospinan.heightmap
 
 import android.content.Context
 import android.graphics.Color
 import android.opengl.GLES20.*
 import android.opengl.Matrix.*
 import androidx.core.math.MathUtils
-import com.carlospinan.skybox.common.GLBaseRenderer
-import com.carlospinan.skybox.extensions.loadCubeMap
-import com.carlospinan.skybox.extensions.loadTexture
-import com.carlospinan.skybox.objects.ParticleShooter
-import com.carlospinan.skybox.objects.ParticleSystem
-import com.carlospinan.skybox.objects.Skybox
-import com.carlospinan.skybox.programs.ParticleShaderProgram
-import com.carlospinan.skybox.programs.SkyboxShaderProgram
-import com.carlospinan.skybox.utilities.Point
-import com.carlospinan.skybox.utilities.Vector
+import com.carlospinan.heightmap.common.GLBaseRenderer
+import com.carlospinan.heightmap.extensions.loadCubeMap
+import com.carlospinan.heightmap.extensions.loadTexture
+import com.carlospinan.heightmap.objects.ParticleShooter
+import com.carlospinan.heightmap.objects.ParticleSystem
+import com.carlospinan.heightmap.objects.Skybox
+import com.carlospinan.heightmap.programs.ParticleShaderProgram
+import com.carlospinan.heightmap.programs.SkyboxShaderProgram
+import com.carlospinan.heightmap.utilities.Point
+import com.carlospinan.heightmap.utilities.Vector
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
 const val ANGLE_VARIANCE = 5f
 const val SPEED_VARIANCE = 1f
 
-class SkyBoxRenderer(
+class HeightBoxRenderer(
     private val context: Context
 ) : GLBaseRenderer() {
 
