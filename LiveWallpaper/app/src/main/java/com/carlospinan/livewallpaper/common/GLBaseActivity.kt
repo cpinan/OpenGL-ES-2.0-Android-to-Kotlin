@@ -1,12 +1,12 @@
 package com.carlospinan.livewallpaper.common
 
+import android.opengl.GLSurfaceView
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.carlospinan.livewallpaper.wallpaper.WallpaperGLSurfaceView
 
 abstract class GLBaseActivity : AppCompatActivity() {
 
-    lateinit var wallpaperSurfaceView: WallpaperGLSurfaceView
+    lateinit var wallpaperSurfaceView: GLSurfaceView
         private set
 
     lateinit var renderer: GLBaseRenderer
@@ -19,7 +19,7 @@ abstract class GLBaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.renderer = setRenderer()
-        wallpaperSurfaceView = WallpaperGLSurfaceView(this)
+        wallpaperSurfaceView = GLSurfaceView(this)
         wallpaperSurfaceView.setEGLContextClientVersion(2)
         wallpaperSurfaceView.setRenderer(renderer)
         setContentView(wallpaperSurfaceView)

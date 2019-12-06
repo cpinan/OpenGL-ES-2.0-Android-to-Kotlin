@@ -1,5 +1,7 @@
 package com.carlospinan.livewallpaper.wallpaper
 
+import android.content.Context
+import android.opengl.GLSurfaceView
 import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
 import com.carlospinan.livewallpaper.WallpaperRenderer
@@ -7,20 +9,20 @@ import com.carlospinan.livewallpaper.utilities.log
 
 class GLWallpaperService : WallpaperService() {
 
-    private val context = this
+    private val uiContext = GLWallpaperService@ this
 
     private inner class GLEngine : Engine() {
 
-        private lateinit var glSurfaceView: WallpaperGLSurfaceView
+        private lateinit var glSurfaceView: WallpaperInnerSurfaceView
         private lateinit var renderer: WallpaperRenderer
 
         override fun onCreate(surfaceHolder: SurfaceHolder) {
             super.onCreate(surfaceHolder)
             log("onCreate($surfaceHolder)")
-            glSurfaceView = WallpaperGLSurfaceView(applicationContext)
-            renderer = WallpaperRenderer(applicationContext)
+            glSurfaceView = WallpaperInnerSurfaceView(uiContext)
+            renderer = WallpaperRenderer(uiContext)
 
-            glSurfaceView.setSurfaceHolder(surfaceHolder)
+            glSurfaceView.preserveEGLContextOnPause = true
             glSurfaceView.setEGLContextClientVersion(2)
             glSurfaceView.setRenderer(renderer)
         }
@@ -52,6 +54,20 @@ class GLWallpaperService : WallpaperService() {
             glSurfaceView.queueEvent {
                 renderer.handleOffsetsChanged(xOffset, yOffset)
             }
+        }
+
+        inner class WallpaperInnerSurfaceView(context: Context) : GLSurfaceView(context) {
+
+            override fun getHolder(): SurfaceHolder {
+                log("Inner SV - $surfaceHolder")
+                return surfaceHolder
+            }
+
+            fun onWallpaperDestroy() {
+                log("onWallpaperDestroy")
+                super.onDetachedFromWindow()
+            }
+
         }
 
     }

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.opengl.GLES20.*
 import android.opengl.Matrix.*
+import android.os.SystemClock
 import androidx.core.math.MathUtils
 import com.carlospinan.livewallpaper.common.GLBaseRenderer
 import com.carlospinan.livewallpaper.extensions.loadCubeMap
@@ -18,6 +19,7 @@ import com.carlospinan.livewallpaper.programs.ParticleShaderProgram
 import com.carlospinan.livewallpaper.programs.SkyboxShaderProgram
 import com.carlospinan.livewallpaper.utilities.Point
 import com.carlospinan.livewallpaper.utilities.Vector
+import com.carlospinan.livewallpaper.utilities.log
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
@@ -75,6 +77,10 @@ class WallpaperRenderer(
 
     private var xOffset = 0f
     private var yOffset = 0f
+
+    private var frameStartTimeMs = 0L
+    private var startTimeMs = 0L
+    private var frameCount = 0
 
     override fun onSurfaceCreated(unused: GL10?, eglConfig: EGLConfig?) {
         glClearColor(0f, 0f, 0f, 0f)
@@ -148,6 +154,9 @@ class WallpaperRenderer(
     }
 
     override fun onDrawFrame(unused: GL10?) {
+        limitFrameRate(24)
+        logFrameRate()
+
         glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
 
         drawHeightmap()
@@ -329,6 +338,29 @@ class WallpaperRenderer(
         this.xOffset = (xOffset - 0.5f) * 2.5f
         this.yOffset = (yOffset - 0.5f) * 2.5f
         updateViewMatrices()
+    }
+
+    private fun limitFrameRate(framesPerSecond: Int) {
+        val elapsedFrameTimeMs =
+            SystemClock.elapsedRealtime() - frameStartTimeMs
+        val expectedFrameTimeMs = 1000 / framesPerSecond.toLong()
+        val timeToSleepMs = expectedFrameTimeMs - elapsedFrameTimeMs
+        if (timeToSleepMs > 0) {
+            SystemClock.sleep(timeToSleepMs)
+        }
+        frameStartTimeMs = SystemClock.elapsedRealtime()
+    }
+
+    private fun logFrameRate() {
+        val elapsedRealtimeMs = SystemClock.elapsedRealtime()
+        val elapsedSeconds = (elapsedRealtimeMs - startTimeMs) / 1000.0
+        if (elapsedSeconds >= 1.0) {
+            val fps = frameCount / elapsedSeconds
+            log("$fps fps")
+            startTimeMs = SystemClock.elapsedRealtime()
+            frameCount = 0
+        }
+        frameCount++
     }
 
 }
