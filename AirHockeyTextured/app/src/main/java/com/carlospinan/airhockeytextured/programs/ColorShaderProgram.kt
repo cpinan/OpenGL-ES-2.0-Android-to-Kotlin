@@ -8,7 +8,7 @@ class ColorShaderProgram(
     context: Context
 ) : ShaderProgram(context, R.raw.simple_vertex_shader, R.raw.simple_fragment_shader) {
 
-    val uMatrixLocation by lazy {
+    private val uMatrixLocation by lazy {
         OpenGLES20.gl2GetUniformLocation(program, U_MATRIX)
     }
 

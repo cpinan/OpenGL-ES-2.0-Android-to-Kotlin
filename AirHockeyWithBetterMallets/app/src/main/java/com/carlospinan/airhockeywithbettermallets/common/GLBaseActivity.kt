@@ -6,11 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 abstract class GLBaseActivity : AppCompatActivity() {
 
-    lateinit var glSurfaceView: GLSurfaceView
-        private set
+    private lateinit var glSurfaceView: GLSurfaceView
 
-    lateinit var renderer: GLBaseRenderer
-        private set
+    private lateinit var renderer: GLBaseRenderer
 
     abstract fun setRenderer(): GLBaseRenderer
 

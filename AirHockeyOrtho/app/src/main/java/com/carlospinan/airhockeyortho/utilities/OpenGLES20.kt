@@ -112,16 +112,6 @@ object OpenGLES20 {
         glEnableVertexAttribArray(index)
     }
 
-    fun gl2Uniform4f(
-        location: Int = 0,
-        red: Float = 0.0f,
-        green: Float = 0.0f,
-        blue: Float = 0.0f,
-        alpha: Float = 0.0f
-    ) {
-        glUniform4f(location, red, green, blue, alpha)
-    }
-
     fun gl2UniformMatrix4fv(
         location: Int = 0,
         count: Int = 0,
@@ -183,24 +173,6 @@ object OpenGLES20 {
             top,
             near,
             far
-        )
-    }
-
-    fun perspectiveM(
-        destinationArray: FloatArray,
-        offset: Int,
-        fovY: Float,
-        aspect: Float,
-        zNear: Float,
-        zFar: Float
-    ) {
-        Matrix.perspectiveM(
-            destinationArray,
-            offset,
-            fovY,
-            aspect,
-            zNear,
-            zFar
         )
     }
 

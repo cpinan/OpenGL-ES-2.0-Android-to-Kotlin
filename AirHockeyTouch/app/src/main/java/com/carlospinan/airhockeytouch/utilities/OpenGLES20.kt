@@ -1,7 +1,6 @@
 package com.carlospinan.airhockeytouch.utilities
 
 import android.opengl.GLES20.*
-import android.opengl.Matrix
 import java.nio.Buffer
 
 object OpenGLES20 {
@@ -168,57 +167,6 @@ object OpenGLES20 {
         0								0				-2 / (far - near)		-((far + near) / (far - near))
         0								0						0								1
     */
-    /**
-     * orthoM(float[] m, int mOffset, float left, float right, float bottom, float top, float near, float far)
-     *
-     * float[] m -> The destination array—this array’s length should be at least sixteen elements so it can store the orthographic projection matrix.
-     * int mOffset -> The offset into m into which the result is written
-     * float left -> The minimum range of the x-axis
-     * float right -> The maximum range of the x-axis
-     * float bottom -> The minimum range of the y-axis
-     * float top -> The maximum range of the y-axis
-     * float near -> The minimum range of the z-axis
-     * float far -> The maximum range of the z-axis
-     */
-    fun orthographic(
-        destinationArray: FloatArray,
-        mOffset: Int,
-        left: Float,
-        right: Float,
-        bottom: Float,
-        top: Float,
-        near: Float,
-        far: Float
-    ) {
-        Matrix.orthoM(
-            destinationArray,
-            mOffset,
-            left,
-            right,
-            bottom,
-            top,
-            near,
-            far
-        )
-    }
-
-    fun perspectiveM(
-        destinationArray: FloatArray,
-        offset: Int,
-        fovY: Float,
-        aspect: Float,
-        zNear: Float,
-        zFar: Float
-    ) {
-        Matrix.perspectiveM(
-            destinationArray,
-            offset,
-            fovY,
-            aspect,
-            zNear,
-            zFar
-        )
-    }
 
 
 }

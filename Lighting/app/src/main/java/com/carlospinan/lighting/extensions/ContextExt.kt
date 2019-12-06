@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.opengl.GLES20.*
-import android.opengl.GLUtils
 import android.opengl.GLUtils.texImage2D
 import com.carlospinan.lighting.utilities.OpenGLES20
 import com.carlospinan.lighting.utilities.log
@@ -181,7 +180,7 @@ fun Context.loadTexture(resourceId: Int): Int {
         This call tells OpenGL to read in the bitmap data defined by
         bitmap and copy it over into the texture object that is currently bound.
      */
-    GLUtils.texImage2D(
+    texImage2D(
         GL_TEXTURE_2D,
         0,
         bitmap,

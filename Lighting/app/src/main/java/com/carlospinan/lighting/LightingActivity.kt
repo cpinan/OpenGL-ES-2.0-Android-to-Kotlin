@@ -1,5 +1,6 @@
 package com.carlospinan.lighting
 
+import android.annotation.SuppressLint
 import android.view.MotionEvent
 import com.carlospinan.lighting.common.GLBaseActivity
 import com.carlospinan.lighting.common.GLBaseRenderer
@@ -10,6 +11,7 @@ class LightingActivity : GLBaseActivity() {
         return LightingRenderer(this)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onReady() {
         var previousX = 0f
         var previousY = 0f

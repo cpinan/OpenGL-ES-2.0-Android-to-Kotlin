@@ -7,7 +7,7 @@ import java.util.*
 
 class ParticleShooter(
     private val position: Point,
-    private val direction: Vector,
+    direction: Vector,
     private val color: Int,
     private val angleVariance: Float,
     private val speedVariance: Float

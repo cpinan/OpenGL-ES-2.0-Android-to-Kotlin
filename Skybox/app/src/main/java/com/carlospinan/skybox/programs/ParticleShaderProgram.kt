@@ -15,15 +15,15 @@ class ParticleShaderProgram(
 
     // Uniform locations
     //      Retrieve uniform locations for the shader program.
-    val matrixUniformLocation by lazy {
+    private val matrixUniformLocation by lazy {
         OpenGLES20.gl2GetUniformLocation(program, U_MATRIX)
     }
 
-    val timeUniformLocation by lazy {
+    private val timeUniformLocation by lazy {
         OpenGLES20.gl2GetUniformLocation(program, U_TIME)
     }
 
-    val textureUniformLocation by lazy {
+    private val textureUniformLocation by lazy {
         OpenGLES20.gl2GetUniformLocation(program, U_TEXTURE_UNIT)
     }
 

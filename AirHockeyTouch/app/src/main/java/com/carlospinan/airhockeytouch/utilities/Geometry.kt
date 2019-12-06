@@ -116,11 +116,7 @@ data class Point(
 data class Circle(
     val center: Point,
     val radius: Float
-) {
-
-    fun scale(scale: Float): Circle = Circle(center, radius * scale)
-
-}
+)
 
 data class Cylinder(
     val center: Point,

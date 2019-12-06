@@ -88,21 +88,21 @@ object ShaderUtils {
     }
 
 
-    fun compileFragmentShader(shaderCode: String): Int {
+    private fun compileFragmentShader(shaderCode: String): Int {
         return compileShader(
             GL_FRAGMENT_SHADER,
             shaderCode
         )
     }
 
-    fun compileVertexShader(shaderCode: String): Int {
+    private fun compileVertexShader(shaderCode: String): Int {
         return compileShader(
             GL_VERTEX_SHADER,
             shaderCode
         )
     }
 
-    fun linkProgram(vertexShaderId: Int, fragmentShaderId: Int): Int {
+    private fun linkProgram(vertexShaderId: Int, fragmentShaderId: Int): Int {
         val programObjectId =
             OpenGLES20.gl2CreateProgram()
         if (programObjectId == 0) {
@@ -148,7 +148,7 @@ object ShaderUtils {
         return programObjectId
     }
 
-    fun validateProgram(programObjectId: Int): Boolean {
+    private fun validateProgram(programObjectId: Int): Boolean {
         OpenGLES20.gl2ValidateProgram(
             programObjectId
         )

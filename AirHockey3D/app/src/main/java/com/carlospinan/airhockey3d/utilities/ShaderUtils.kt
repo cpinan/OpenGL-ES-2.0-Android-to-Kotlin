@@ -121,14 +121,4 @@ object ShaderUtils {
         return validateStatus[0] != 0
     }
 
-    fun buildProgram(vertexShaderSource: String, fragmentShaderSource: String): Int {
-        val vertexShader = compileVertexShader(vertexShaderSource)
-        val fragmentShader = compileFragmentShader(fragmentShaderSource)
-        val program = linkProgram(vertexShader, fragmentShader)
-
-        validateProgram(program)
-
-        return program
-    }
-
 }

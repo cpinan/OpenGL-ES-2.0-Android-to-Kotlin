@@ -22,7 +22,7 @@ object ShaderUtils {
     /**
      * If the object creation failed, we’ll return 0 to the calling code.
      * Why do we return 0 instead of throwing an exception?
-     * Well, OpenGL doesn’t actually throw any exceptions internally.
+     * Well, OpenGL doesn't actually throw any exceptions internally.
      * Instead, we’ll get a return value of 0 or OpenGL will inform us of the error through glGetError(),
      * a method that lets us ask OpenGL if any of our API calls have resulted in an error.
      * We’ll follow the same convention to stay consistent.
@@ -119,16 +119,6 @@ object ShaderUtils {
         log("Results of validating program ${validateStatus[0]}\nLog:$shaderInfoLog")
 
         return validateStatus[0] != 0
-    }
-
-    fun buildProgram(vertexShaderSource: String, fragmentShaderSource: String): Int {
-        val vertexShader = compileVertexShader(vertexShaderSource)
-        val fragmentShader = compileFragmentShader(fragmentShaderSource)
-        val program = linkProgram(vertexShader, fragmentShader)
-
-        validateProgram(program)
-
-        return program
     }
 
 }

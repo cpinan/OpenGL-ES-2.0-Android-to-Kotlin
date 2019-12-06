@@ -1,5 +1,6 @@
 package com.carlospinan.heightmap
 
+import android.annotation.SuppressLint
 import android.view.MotionEvent
 import com.carlospinan.heightmap.common.GLBaseActivity
 import com.carlospinan.heightmap.common.GLBaseRenderer
@@ -10,6 +11,7 @@ class HeightBoxActivity : GLBaseActivity() {
         return HeightBoxRenderer(this)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onReady() {
         var previousX = 0f
         var previousY = 0f

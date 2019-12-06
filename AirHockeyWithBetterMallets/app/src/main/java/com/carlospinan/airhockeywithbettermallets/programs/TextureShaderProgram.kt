@@ -10,13 +10,13 @@ class TextureShaderProgram(
     context: Context
 ) : ShaderProgram(context, R.raw.texture_vertex_shader, R.raw.texture_fragment_shader) {
 
-    val uMatrixLocation by lazy {
+    private val uMatrixLocation by lazy {
         OpenGLES20.gl2GetUniformLocation(program,
             U_MATRIX
         )
     }
 
-    val uTextureUnitLocation by lazy {
+    private val uTextureUnitLocation by lazy {
         OpenGLES20.gl2GetUniformLocation(program,
             U_TEXTURE_UNIT
         )

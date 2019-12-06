@@ -20,11 +20,9 @@ data class Vector(
     val z: Float
 ) {
 
-    companion object {
-        fun zero(): Vector = Vector(0f, 0f, 0f)
-    }
+    companion object;
 
-    fun length(): Float {
+    private fun length(): Float {
         return sqrt(x * x + y * y + z * z)
     }
 
@@ -37,12 +35,7 @@ data class Vector(
         )
     }
 
-    // http://en.wikipedia.org/wiki/Dot_product
-    fun dotProduct(other: Vector): Float {
-        return x * other.x + y * other.y + z * other.z
-    }
-
-    fun scale(scaleFactor: Float): Vector {
+    private fun scale(scaleFactor: Float): Vector {
         return Vector(x * scaleFactor, y * scaleFactor, z * scaleFactor)
     }
 
@@ -59,15 +52,6 @@ data class Point(
 
     companion object {
         fun zero(): Point = Point(0f, 0f, 0f)
-        fun from(position: Point): Point = Point(position.x, position.y, position.z)
-    }
-
-    fun translateY(distance: Float): Point {
-        return Point(x, y + distance, z)
-    }
-
-    fun translate(vector: Vector): Point {
-        return Point(x + vector.x, y + vector.y, z + vector.z)
     }
 
 }

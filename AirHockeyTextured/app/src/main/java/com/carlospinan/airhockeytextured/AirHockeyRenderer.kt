@@ -3,7 +3,6 @@ package com.carlospinan.airhockeytextured
 import android.content.Context
 import android.opengl.GLES20.GL_COLOR_BUFFER_BIT
 import android.opengl.Matrix
-import com.carlospinan.airhockeytextured.common.BYTES_PER_FLOAT
 import com.carlospinan.airhockeytextured.common.GLBaseRenderer
 import com.carlospinan.airhockeytextured.extensions.loadTexture
 import com.carlospinan.airhockeytextured.objects.Mallet
@@ -13,16 +12,6 @@ import com.carlospinan.airhockeytextured.programs.TextureShaderProgram
 import com.carlospinan.airhockeytextured.utilities.OpenGLES20
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
-
-private const val A_COLOR = "a_Color"
-private const val A_POSITION = "a_Position"
-private const val U_MATRIX = "u_Matrix"
-
-private const val POSITION_COMPONENT_COUNT = 2
-private const val COLOR_COMPONENT_COUNT = 3
-
-private const val STRIDE =
-    (POSITION_COMPONENT_COUNT + COLOR_COMPONENT_COUNT) * BYTES_PER_FLOAT
 
 class AirHockeyRenderer(private val context: Context) : GLBaseRenderer() {
 

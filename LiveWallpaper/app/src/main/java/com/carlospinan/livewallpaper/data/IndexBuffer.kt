@@ -6,7 +6,7 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 class IndexBuffer(
-    private val indexData: ShortArray
+    indexData: ShortArray
 ) {
     val bufferId: Int
 

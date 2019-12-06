@@ -1,5 +1,6 @@
 package com.carlospinan.skybox
 
+import android.annotation.SuppressLint
 import android.view.MotionEvent
 import com.carlospinan.skybox.common.GLBaseActivity
 import com.carlospinan.skybox.common.GLBaseRenderer
@@ -10,6 +11,7 @@ class SkyBoxActivity : GLBaseActivity() {
         return SkyBoxRenderer(this)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onReady() {
         var previousX = 0f
         var previousY = 0f

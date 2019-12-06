@@ -10,7 +10,7 @@ import com.carlospinan.heightmap.programs.HeightmapShaderProgram
 private const val POSITION_COMPONENT_COUNT = 3
 
 class Heightmap(
-    private val bitmap: Bitmap
+    bitmap: Bitmap
 ) {
 
     private val width = bitmap.width

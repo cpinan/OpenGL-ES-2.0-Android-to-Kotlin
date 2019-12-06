@@ -8,10 +8,10 @@ import java.nio.FloatBuffer
 
 
 class VertexBuffer(
-    private val vertexData: FloatArray
+    vertexData: FloatArray
 ) {
 
-    val bufferId: Int
+    private val bufferId: Int
 
     init {
         val buffers = IntArray(1)

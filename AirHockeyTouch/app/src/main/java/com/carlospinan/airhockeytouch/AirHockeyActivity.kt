@@ -1,5 +1,6 @@
 package com.carlospinan.airhockeytouch
 
+import android.annotation.SuppressLint
 import android.view.MotionEvent
 import com.carlospinan.airhockeytouch.common.GLBaseActivity
 import com.carlospinan.airhockeytouch.common.GLBaseRenderer
@@ -10,6 +11,7 @@ class AirHockeyActivity : GLBaseActivity() {
         return AirHockeyRenderer(this)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onReady() {
 
         glSurfaceView.setOnTouchListener { view, event ->

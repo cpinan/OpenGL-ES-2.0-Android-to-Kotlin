@@ -1,5 +1,6 @@
 package com.carlospinan.livewallpaper
 
+import android.annotation.SuppressLint
 import android.view.MotionEvent
 import com.carlospinan.livewallpaper.common.GLBaseActivity
 import com.carlospinan.livewallpaper.common.GLBaseRenderer
@@ -10,6 +11,7 @@ class WallpaperActivity : GLBaseActivity() {
         return WallpaperRenderer(applicationContext)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onReady() {
         var previousX = 0f
         var previousY = 0f

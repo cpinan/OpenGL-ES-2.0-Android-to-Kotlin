@@ -15,11 +15,11 @@ class SkyboxShaderProgram(
 
     // Uniform locations
     //      Retrieve uniform locations for the shader program.
-    val matrixUniformLocation by lazy {
+    private val matrixUniformLocation by lazy {
         OpenGLES20.gl2GetUniformLocation(program, U_MATRIX)
     }
 
-    val textureUniformLocation by lazy {
+    private val textureUniformLocation by lazy {
         OpenGLES20.gl2GetUniformLocation(program, U_TEXTURE_UNIT)
     }
 

@@ -56,7 +56,7 @@ class AirHockeyRenderer(private val context: Context) : GLBaseRenderer() {
          *
          * The next line tells the byte buffer that it should organize its bytes in native order.
          * When it comes to values that span multiple bytes, such as 32-bit integers,
-         * the bytes can be ordered either from most significant to least signif- icant or from least to most.
+         * the bytes can be ordered either from most significant to least sign-if- i-cant or from least to most.
          * Think of this as similar to writing a number either from left to right or right to left.
          * It’s not important for us to know what that order is,
          * but it is important that we use the same order as the platform.
